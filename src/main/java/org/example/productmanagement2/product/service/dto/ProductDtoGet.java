@@ -1,15 +1,13 @@
-package org.example.productmanagement2.service.dto;
+package org.example.productmanagement2.product.service.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.example.productmanagement2.model.Product;
+import org.example.productmanagement2.product.model.Product;
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.stereotype.Component;
 import vn.saolasoft.base.service.dto.DtoGet;
 
 import java.io.Serial;
 
-@Setter
-@Getter
+@Component
 public class ProductDtoGet extends DtoGet<Product, String> {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -38,6 +36,35 @@ public class ProductDtoGet extends DtoGet<Product, String> {
         this.categoryId = categoryId;
     }
 
+    public String getSku() {
+        return sku;
+    }
 
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
 
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
 }

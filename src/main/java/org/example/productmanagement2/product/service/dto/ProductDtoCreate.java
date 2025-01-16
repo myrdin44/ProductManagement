@@ -1,11 +1,13 @@
-package org.example.productmanagement2.service.dto;
+package org.example.productmanagement2.product.service.dto;
 
-import org.example.productmanagement2.model.Product;
+import org.example.productmanagement2.product.model.Product;
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.stereotype.Component;
 import vn.saolasoft.base.service.dto.DtoCreate;
 
 import java.io.Serial;
 
+@Component
 public class ProductDtoCreate extends DtoCreate<Product, String> {
     @Serial
     private static final long serialVersionUID = 1L;

@@ -1,12 +1,11 @@
-package org.example.productmanagement2.model;
+package org.example.productmanagement2.product.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import org.example.productmanagement2.category.model.Category;
 import org.hibernate.annotations.UuidGenerator;
 import vn.saolasoft.base.persistence.model.AuditableGeneratedIDEntry;
 import vn.saolasoft.base.persistence.model.interfaces.BaseEntity;
@@ -20,26 +19,19 @@ public class Product extends AuditableGeneratedIDEntry implements BaseEntity<Str
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Setter
-    @Getter
+
     @UuidGenerator( style = UuidGenerator.Style.RANDOM)
     private String sku;
 
-    @Setter
-    @Getter
+
     private String productName;
-    @Setter
-    @Getter
+
     private double price;
 
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     @JsonBackReference
     private Category category;
-
-    @Setter
-    @Getter
-    private String categoryId = category.getCategoryId();
 
     public Product() {}
 
@@ -48,7 +40,46 @@ public class Product extends AuditableGeneratedIDEntry implements BaseEntity<Str
         this.productName = productName;
         this.price = price;
         this.category = new Category();
-        this.categoryId = categoryId;
+        this.category.setCategoryId(categoryId);
     }
 
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getCategoryId() {
+        return category.getCategoryId();
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.category.setCategoryId(categoryId);
+    }
 }

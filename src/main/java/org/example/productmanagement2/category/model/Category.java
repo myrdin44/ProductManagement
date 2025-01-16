@@ -1,7 +1,8 @@
-package org.example.productmanagement2.model;
+package org.example.productmanagement2.category.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.example.productmanagement2.product.model.Product;
 import org.hibernate.annotations.UuidGenerator;
 import vn.saolasoft.base.persistence.model.AuditableGeneratedIDEntry;
 
