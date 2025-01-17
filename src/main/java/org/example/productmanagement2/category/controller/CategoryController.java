@@ -1,46 +1,78 @@
 package org.example.productmanagement2.category.controller;
 
 import org.example.productmanagement2.category.model.Category;
-import org.example.productmanagement2.category.service.CategoryService;
-import org.example.productmanagement2.category.service.filter.CategoryFilter;
-import org.example.productmanagement2.category.service.filter.CategoryIntegration;
-import org.example.productmanagement2.category.service.filter.CategoryPaging;
-import org.example.productmanagement2.category.service.filter.CategorySort;
+import org.example.productmanagement2.category.service.dto.CategoryDtoGet;
+import org.example.productmanagement2.category.service.impl.CategoryJpaServiceImpl;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import vn.saolasoft.base.api.method.AuditableDtoAPIMethod;
+import vn.saolasoft.base.api.response.APIListResponse;
+import vn.saolasoft.base.api.response.APIResponse;
+import vn.saolasoft.base.service.AuditableDtoService;
+import vn.saolasoft.base.service.dto.BaseDtoCreate;
+import vn.saolasoft.base.service.dto.DtoUpdate;
+import vn.saolasoft.base.service.filter.BaseFilter;
+import vn.saolasoft.base.service.filter.PaginationInfo;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/stock")
-public class CategoryController {
+public class CategoryController extends AuditableDtoAPIMethod<CategoryDtoGet,Category, String> {
     @Autowired
-    private CategoryService categoryService;
+    private CategoryJpaServiceImpl categoryService;
 
-    @GetMapping("/category")
-    public List<Category> getFilteredCategories(@RequestParam(required = false) String name,
-                                                @RequestParam(required = false) String description,
-                                                @RequestParam(required = false, defaultValue = "0") int page,
-                                                @RequestParam(required = false, defaultValue = "10") int size,
-                                                @RequestParam(required = false, defaultValue = "categoryName") String orderColumn,
-                                                @RequestParam(required = false, defaultValue = "asc") boolean ascending){
+    public CategoryController(@Qualifier("categoryJpaServiceImpl") AuditableDtoService service) {
+        super(service);
+    }
 
-        CategoryFilter filter = new CategoryFilter();
-        filter.setCategoryName(name);
-        filter.setCategoryDescription(description);
+    @Override
+    public AuditableDtoService<CategoryDtoGet, Category, String> getService() {
+        return super.getService();
+    }
 
-        CategorySort sort = new CategorySort(orderColumn, ascending);
+    @Override
+    @GetMapping("/logger")
+    public Logger getLogger() {
+        return super.getLogger();
+    }
 
+    @Override
+    @GetMapping("/list")
+    public ResponseEntity<APIListResponse<List<CategoryDtoGet>>> getList(@RequestBody PaginationInfo pageInfo) {
+        return super.getList(pageInfo);
+    }
 
-        CategoryPaging paging = new CategoryPaging();
-        paging.setPage(page);
-        paging.setSize(size);
+    @Override
+    @GetMapping("/get-one")
+    public ResponseEntity<APIResponse<CategoryDtoGet>> getById(@RequestParam("uuid") String uuid) {
+        return super.getById(uuid);
+    }
 
-        CategoryIntegration integrationCriteria = new CategoryIntegration(filter, sort, paging);
+    @Override
+    @PostMapping("/create")
+    public ResponseEntity<APIResponse<String>> create(@RequestBody BaseDtoCreate<Category, String> object,@RequestParam("creatorId") Long callerId) {
+        return super.create(object, callerId);
+    }
 
-        return categoryService.getFilteredCategories(integrationCriteria);
+    @Override
+    @PutMapping("/update")
+    public ResponseEntity<APIResponse<String>> update(DtoUpdate<Category, String> object, Long callerId) {
+        return super.update(object, callerId);
+    }
+
+    @Override
+    @DeleteMapping("/delete")
+    public ResponseEntity<APIResponse<String>> delete(String s, Long callerId) {
+        return super.delete(s, callerId);
+    }
+
+    @Override
+    @GetMapping("/search")
+    public ResponseEntity<APIListResponse<List<CategoryDtoGet>>> search(BaseFilter<Category, String> filter, PaginationInfo pageInfo) {
+        return super.search(filter, pageInfo);
     }
 }

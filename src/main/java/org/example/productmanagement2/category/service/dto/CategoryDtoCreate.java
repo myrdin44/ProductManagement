@@ -23,7 +23,7 @@ public class CategoryDtoCreate extends DtoCreate<Category, String> {
     public Category toEntry() {
         Category category = new Category();
 
-        category.setCategoryId(categoryId);
+        category.setId(categoryId);
         category.setCategoryName(categoryName);
         category.setDescription(categoryDescription);
 

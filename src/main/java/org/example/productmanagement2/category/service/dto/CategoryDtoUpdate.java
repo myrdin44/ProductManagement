@@ -14,10 +14,10 @@ public class CategoryDtoUpdate extends DtoUpdate<Category, String> {
 
     @Override
     public boolean apply(Category category) {
-        if (!category.getCategoryId().equals(categoryId)
+        if (!category.getId().equals(categoryId)
                 || !category.getCategoryName().equals(categoryName)
                 || !category.getDescription().equals(categoryDescription) ) {
-            category.setCategoryId(categoryId);
+            category.setId(categoryId);
             category.setCategoryName(categoryName);
             category.setDescription(categoryDescription);
             return true;

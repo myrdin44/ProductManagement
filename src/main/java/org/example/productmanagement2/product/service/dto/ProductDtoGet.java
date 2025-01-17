@@ -23,7 +23,6 @@ public class ProductDtoGet extends DtoGet<Product, String> {
 
     @Override
     public void parse(Product product) {
-            this.setSku(product.getSku());
             this.setProductName(product.getProductName());
             this.setPrice(product.getPrice());
             this.setCategoryId(product.getCategoryId());

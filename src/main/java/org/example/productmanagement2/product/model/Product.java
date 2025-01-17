@@ -6,23 +6,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.example.productmanagement2.category.model.Category;
-import org.hibernate.annotations.UuidGenerator;
 import vn.saolasoft.base.persistence.model.AuditableGeneratedIDEntry;
 import vn.saolasoft.base.persistence.model.interfaces.BaseEntity;
 
-import java.io.Serial;
-
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product extends AuditableGeneratedIDEntry implements BaseEntity<String> {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-
-    @UuidGenerator( style = UuidGenerator.Style.RANDOM)
-    private String sku;
-
 
     private String productName;
 
@@ -35,20 +24,11 @@ public class Product extends AuditableGeneratedIDEntry implements BaseEntity<Str
 
     public Product() {}
 
-    public Product(String sku, String productName, double price, String categoryId) {
-        this.sku = sku;
+    public Product(String productName, double price, String categoryId) {
         this.productName = productName;
         this.price = price;
         this.category = new Category();
-        this.category.setCategoryId(categoryId);
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
+        this.category.setId(categoryId);
     }
 
     public String getProductName() {
@@ -76,10 +56,10 @@ public class Product extends AuditableGeneratedIDEntry implements BaseEntity<Str
     }
 
     public String getCategoryId() {
-        return category.getCategoryId();
+        return category.getId();
     }
 
     public void setCategoryId(String categoryId) {
-        this.category.setCategoryId(categoryId);
+        this.category.setId(categoryId);
     }
 }

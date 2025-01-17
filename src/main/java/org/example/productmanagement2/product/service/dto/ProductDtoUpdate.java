@@ -4,7 +4,6 @@ import org.example.productmanagement2.product.model.Product;
 import vn.saolasoft.base.service.dto.DtoUpdate;
 
 public class ProductDtoUpdate extends DtoUpdate<Product, String> {
-    private static final long serialVersionUID = 1L;
 
     private String sku;
     private String productName;
@@ -20,9 +19,41 @@ public class ProductDtoUpdate extends DtoUpdate<Product, String> {
         this.categoryId = categoryId;
     }
 
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public boolean apply(Product product) {
-        if(!product.getSku().equals(sku)
+        if(!product.getId().equals(sku)
         || !product.getProductName().equals(productName)
             || product.getPrice() != price
             || !product.getCategoryId().equals(categoryId)

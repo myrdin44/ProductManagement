@@ -19,6 +19,30 @@ public class CategoryIntegration {
     @Autowired
     private CategoryPaging paging;
 
+    public CategoryFilter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(CategoryFilter filter) {
+        this.filter = filter;
+    }
+
+    public CategorySort getSort() {
+        return sort;
+    }
+
+    public void setSort(CategorySort sort) {
+        this.sort = sort;
+    }
+
+    public CategoryPaging getPaging() {
+        return paging;
+    }
+
+    public void setPaging(CategoryPaging paging) {
+        this.paging = paging;
+    }
+
     public CategoryIntegration(CategoryFilter filter, CategorySort sort, CategoryPaging paging) {
         this.filter = filter;
         this.sort = sort;

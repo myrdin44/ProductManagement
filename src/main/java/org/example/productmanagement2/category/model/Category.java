@@ -3,20 +3,13 @@ package org.example.productmanagement2.category.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.example.productmanagement2.product.model.Product;
-import org.hibernate.annotations.UuidGenerator;
 import vn.saolasoft.base.persistence.model.AuditableGeneratedIDEntry;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class Category extends AuditableGeneratedIDEntry {
-    private static final long serialVersionUID = 1L;
-
-    @UuidGenerator( style = UuidGenerator.Style.RANDOM)
-    @Column(name = "category_id", unique = true)
-    private String categoryId;
 
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
@@ -24,14 +17,6 @@ public class Category extends AuditableGeneratedIDEntry {
 
     private String categoryName;
     private String description;
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public String getCategoryName() {
         return categoryName;

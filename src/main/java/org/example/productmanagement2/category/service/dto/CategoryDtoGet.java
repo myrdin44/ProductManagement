@@ -15,7 +15,7 @@ public class CategoryDtoGet extends DtoGet<Category, String> {
 
     @Override
     public void parse(Category category) {
-        this.categoryId = category.getCategoryId();
+        this.categoryId = category.getId();
         this.categoryName = category.getCategoryName();
         this.categoryDescription = category.getDescription();
     }

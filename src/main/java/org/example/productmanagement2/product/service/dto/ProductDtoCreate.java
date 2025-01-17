@@ -32,7 +32,6 @@ public class ProductDtoCreate extends DtoCreate<Product, String> {
     @Override
     public Product toEntry() {
         Product product = new Product();
-        product.setSku(sku);
         product.setProductName(productName);
         product.setPrice(price);
         product.setCategoryId(categoryId);
