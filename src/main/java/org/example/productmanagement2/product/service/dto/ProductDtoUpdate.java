@@ -3,7 +3,7 @@ package org.example.productmanagement2.product.service.dto;
 import org.example.productmanagement2.product.model.Product;
 import vn.saolasoft.base.service.dto.DtoUpdate;
 
-public class ProductDtoUpdate extends DtoUpdate<Product, String> {
+public class ProductDtoUpdate extends DtoUpdate<Product, Long> {
 
     private String sku;
     private String productName;

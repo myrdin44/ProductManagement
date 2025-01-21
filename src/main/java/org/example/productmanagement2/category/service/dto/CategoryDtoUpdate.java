@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import vn.saolasoft.base.service.dto.DtoUpdate;
 
 @Service
-public class CategoryDtoUpdate extends DtoUpdate<Category, String> {
-    private String categoryId;
+public class CategoryDtoUpdate extends DtoUpdate<Category, Long> {
+    private Long categoryId;
     private String categoryName;
     private String categoryDescription;
 
@@ -26,17 +26,17 @@ public class CategoryDtoUpdate extends DtoUpdate<Category, String> {
         }
     }
 
-    public CategoryDtoUpdate(String categoryId, String categoryName, String categoryDescription) {
+    public CategoryDtoUpdate(Long categoryId, String categoryName, String categoryDescription) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
     }
 
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 

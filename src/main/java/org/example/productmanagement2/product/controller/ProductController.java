@@ -1,78 +1,73 @@
 package org.example.productmanagement2.product.controller;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.annotation.PostConstruct;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.example.productmanagement2.product.model.Product;
+import org.example.productmanagement2.product.request.SearchRequest;
+import org.example.productmanagement2.product.service.dto.ProductDtoCreate;
 import org.example.productmanagement2.product.service.dto.ProductDtoGet;
+import org.example.productmanagement2.product.service.dto.ProductDtoUpdate;
 import org.example.productmanagement2.product.service.impl.ProductJpaServiceImpl;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.saolasoft.base.api.method.AuditableDtoAPIMethod;
 import vn.saolasoft.base.api.response.APIListResponse;
 import vn.saolasoft.base.api.response.APIResponse;
-import vn.saolasoft.base.service.AuditableDtoService;
-import vn.saolasoft.base.service.dto.BaseDtoCreate;
-import vn.saolasoft.base.service.dto.DtoUpdate;
 import vn.saolasoft.base.service.filter.BaseFilter;
 import vn.saolasoft.base.service.filter.PaginationInfo;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/details")
-public class ProductController extends AuditableDtoAPIMethod<ProductDtoGet, Product, String> {
+@RequestMapping("/pd")
+public class ProductController{
+    private static final Log log = LogFactory.getLog(ProductController.class);
     @Autowired
     private ProductJpaServiceImpl productService;
 
-    public ProductController(@Qualifier("productJpaServiceImpl") AuditableDtoService service) {
-        super(service);
+    private AuditableDtoAPIMethod<ProductDtoGet, Product, Long> auditableDtoAPIMethod = new AuditableDtoAPIMethod<ProductDtoGet, Product, Long>(productService);
+
+    @PostConstruct
+    public void init() {
+        this.auditableDtoAPIMethod = new AuditableDtoAPIMethod<>(productService);
     }
 
-    @Override
-    public AuditableDtoService<ProductDtoGet, Product, String> getService() {
-        return super.getService();
-    }
-
-    @Override
-    @GetMapping("/logger")
-    public Logger getLogger() {
-        return super.getLogger();
-    }
-
-    @Override
     @GetMapping("/list")
-    public ResponseEntity<APIListResponse<List<ProductDtoGet>>> getList(@RequestBody PaginationInfo pageInfo) {
-        return super.getList(pageInfo);
+    public ResponseEntity<APIListResponse<List<ProductDtoGet>>> getListProducts(@RequestBody PaginationInfo paginationInfo){
+        return auditableDtoAPIMethod.getList(paginationInfo);
     }
 
-    @Override
-    @GetMapping("/get-one")
-    public ResponseEntity<APIResponse<ProductDtoGet>> getById(@RequestParam("sku") String sku) {
-        return super.getById(sku);
-    }
-
-    @Override
     @PostMapping("/create")
-    public ResponseEntity<APIResponse<String>> create(@RequestBody BaseDtoCreate<Product, String> product, Long callerId) {
-        return super.create(product, callerId);
+    public ResponseEntity<APIResponse<Long>> createProduct(@RequestBody ProductDtoCreate productDtoCreate){
+        log.debug("Received DTO {}" + productDtoCreate);
+        return auditableDtoAPIMethod.create(productDtoCreate, 1L);
     }
 
-    @Override
-    @PostMapping("/update")
-    public ResponseEntity<APIResponse<String>> update(DtoUpdate<Product, String> object, Long callerId) {
-        return super.update(object, callerId);
+    @GetMapping("/get-one")
+    public ResponseEntity<APIResponse<ProductDtoGet>> getProductById(@RequestParam("id") Long productId){
+        return auditableDtoAPIMethod.getById(productId);
     }
 
-    @Override
-    @DeleteMapping("/delete")
-    public ResponseEntity<APIResponse<String>> delete(@RequestParam("sku") String sku, Long callerId) {
-        return super.delete(sku, callerId);
-    }
-
-    @Override
     @GetMapping("/search")
-    public ResponseEntity<APIListResponse<List<ProductDtoGet>>> search(BaseFilter<Product, String> filter, PaginationInfo pageInfo) {
-        return super.search(filter, pageInfo);
+    public ResponseEntity<APIListResponse<List<ProductDtoGet>>> search(@RequestBody SearchRequest searchRequest){
+        BaseFilter<Product, Long> baseFilter = searchRequest.getBaseFilter();
+
+        PaginationInfo paginationInfo = searchRequest.getPaginationInfo();
+
+        return auditableDtoAPIMethod.search(baseFilter, paginationInfo);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<APIResponse<Long>> updateProduct(@RequestBody ProductDtoUpdate productDtoUpdate){
+        return auditableDtoAPIMethod.update(productDtoUpdate, 1L);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<APIResponse<Long>> deleteProduct(@RequestParam("id") Long productId){
+        return auditableDtoAPIMethod.delete(productId, 1L);
     }
 }

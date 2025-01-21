@@ -5,16 +5,15 @@ import org.springframework.stereotype.Service;
 import vn.saolasoft.base.service.dto.DtoCreate;
 
 @Service
-public class CategoryDtoCreate extends DtoCreate<Category, String> {
+public class CategoryDtoCreate extends DtoCreate<Category, Long> {
 
-    private String categoryId;
     private String categoryName;
     private String categoryDescription;
 
     CategoryDtoCreate() {}
 
-    CategoryDtoCreate(String categoryId, String categoryName, String categoryDescription) {
-        this.categoryId = categoryId;
+    CategoryDtoCreate(Long categoryId, String categoryName, String categoryDescription) {
+        this.setId(categoryId);
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
     }
@@ -23,7 +22,7 @@ public class CategoryDtoCreate extends DtoCreate<Category, String> {
     public Category toEntry() {
         Category category = new Category();
 
-        category.setId(categoryId);
+        category.setId(this.getId());
         category.setCategoryName(categoryName);
         category.setDescription(categoryDescription);
 

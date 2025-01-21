@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import vn.saolasoft.base.service.filter.BaseFilter;
 
 @Component
-public class CategoryFilter extends BaseFilter<Category, String> {
+public class CategoryFilter extends BaseFilter<Category, Long> {
     private String categoryName;
     private String categoryDescription;
 

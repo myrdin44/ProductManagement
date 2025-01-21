@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/stock")
-public class CategoryController extends AuditableDtoAPIMethod<CategoryDtoGet,Category, String> {
+public class CategoryController extends AuditableDtoAPIMethod<CategoryDtoGet,Category, Long> {
     @Autowired
     private CategoryJpaServiceImpl categoryService;
 
@@ -30,7 +30,7 @@ public class CategoryController extends AuditableDtoAPIMethod<CategoryDtoGet,Cat
     }
 
     @Override
-    public AuditableDtoService<CategoryDtoGet, Category, String> getService() {
+    public AuditableDtoService<CategoryDtoGet, Category, Long> getService() {
         return super.getService();
     }
 
@@ -48,31 +48,31 @@ public class CategoryController extends AuditableDtoAPIMethod<CategoryDtoGet,Cat
 
     @Override
     @GetMapping("/get-one")
-    public ResponseEntity<APIResponse<CategoryDtoGet>> getById(@RequestParam("uuid") String uuid) {
+    public ResponseEntity<APIResponse<CategoryDtoGet>> getById(@RequestParam("uuid") Long uuid) {
         return super.getById(uuid);
     }
 
     @Override
     @PostMapping("/create")
-    public ResponseEntity<APIResponse<String>> create(@RequestBody BaseDtoCreate<Category, String> object,@RequestParam("creatorId") Long callerId) {
+    public ResponseEntity<APIResponse<Long>> create(@RequestBody BaseDtoCreate<Category, Long> object,@RequestParam("creatorId") Long callerId) {
         return super.create(object, callerId);
     }
 
     @Override
     @PutMapping("/update")
-    public ResponseEntity<APIResponse<String>> update(DtoUpdate<Category, String> object, Long callerId) {
+    public ResponseEntity<APIResponse<Long>> update(DtoUpdate<Category, Long> object, Long callerId) {
         return super.update(object, callerId);
     }
 
     @Override
     @DeleteMapping("/delete")
-    public ResponseEntity<APIResponse<String>> delete(String s, Long callerId) {
-        return super.delete(s, callerId);
+    public ResponseEntity<APIResponse<Long>> delete(Long id, Long callerId) {
+        return super.delete(id, callerId);
     }
 
     @Override
     @GetMapping("/search")
-    public ResponseEntity<APIListResponse<List<CategoryDtoGet>>> search(BaseFilter<Category, String> filter, PaginationInfo pageInfo) {
+    public ResponseEntity<APIListResponse<List<CategoryDtoGet>>> search(BaseFilter<Category, Long> filter, PaginationInfo pageInfo) {
         return super.search(filter, pageInfo);
     }
 }

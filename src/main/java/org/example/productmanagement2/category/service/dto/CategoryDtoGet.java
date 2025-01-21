@@ -5,9 +5,8 @@ import org.springframework.stereotype.Service;
 import vn.saolasoft.base.service.dto.DtoGet;
 
 @Service
-public class CategoryDtoGet extends DtoGet<Category, String> {
+public class CategoryDtoGet extends DtoGet<Category, Long> {
 
-    private String categoryId;
     private String categoryName;
     private String categoryDescription;
 
@@ -15,23 +14,15 @@ public class CategoryDtoGet extends DtoGet<Category, String> {
 
     @Override
     public void parse(Category category) {
-        this.categoryId = category.getId();
+        this.setId(category.getId());
         this.categoryName = category.getCategoryName();
         this.categoryDescription = category.getDescription();
     }
 
-    public CategoryDtoGet(String categoryId, String categoryName, String categoryDescription) {
-        this.categoryId = categoryId;
+    public CategoryDtoGet(Long categoryId, String categoryName, String categoryDescription) {
+        this.setId(categoryId);
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {

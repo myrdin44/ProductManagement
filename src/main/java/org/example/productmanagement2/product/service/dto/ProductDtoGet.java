@@ -1,46 +1,30 @@
 package org.example.productmanagement2.product.service.dto;
 
 import org.example.productmanagement2.product.model.Product;
-import org.hibernate.annotations.UuidGenerator;
 import org.springframework.stereotype.Component;
 import vn.saolasoft.base.service.dto.DtoGet;
 
-import java.io.Serial;
-
 @Component
-public class ProductDtoGet extends DtoGet<Product, String> {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    @UuidGenerator( style = UuidGenerator.Style.RANDOM)
-    private String sku;
+public class ProductDtoGet extends DtoGet<Product, Long> {
 
     private String productName;
     private double price;
-    private String categoryId;
+    private Long categoryId;
 
     public ProductDtoGet() {}
 
     @Override
     public void parse(Product product) {
+            this.setId(product.getId());
             this.setProductName(product.getProductName());
             this.setPrice(product.getPrice());
             this.setCategoryId(product.getCategoryId());
     }
 
-    public ProductDtoGet(String sku, String productName, double price, String categoryId) {
-        this.sku = sku;
+    public ProductDtoGet(String productName, double price, Long categoryId) {
         this.productName = productName;
         this.price = price;
         this.categoryId = categoryId;
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
     }
 
     public String getProductName() {
@@ -59,11 +43,11 @@ public class ProductDtoGet extends DtoGet<Product, String> {
         this.price = price;
     }
 
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 }

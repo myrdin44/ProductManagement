@@ -11,29 +11,29 @@ import vn.saolasoft.base.service.dto.DtoUpdate;
 import java.util.Collection;
 import java.util.List;
 
-public interface CategoryDtoService extends AuditableDtoService<CategoryDtoGet, Category, String> {
+public interface CategoryDtoService extends AuditableDtoService<CategoryDtoGet, Category, Long> {
 
     @Override
-    CategoryDtoGet createAndGet(BaseDtoCreate<Category, String> baseDtoCreate, Long aLong) throws APIException;
+    CategoryDtoGet createAndGet(BaseDtoCreate<Category, Long> baseDtoCreate, Long aLong) throws APIException;
 
     @Override
-    String create(BaseDtoCreate<Category, String> baseDtoCreate, Long aLong) throws APIException;
+    Long create(BaseDtoCreate<Category, Long> baseDtoCreate, Long aLong) throws APIException;
 
     @Override
-    List<CategoryDtoGet> createAndGet(Collection<? extends BaseDtoCreate<Category, String>> collection, Long aLong) throws APIException;
+    List<CategoryDtoGet> createAndGet(Collection<? extends BaseDtoCreate<Category, Long>> collection, Long aLong) throws APIException;
 
     @Override
-    List<String> create(Collection<? extends BaseDtoCreate<Category, String>> collection, Long aLong) throws APIException;
+    List<Long> create(Collection<? extends BaseDtoCreate<Category, Long>> collection, Long aLong) throws APIException;
 
     @Override
-    CategoryDtoGet updateAndGet(DtoUpdate<Category, String> dtoUpdate, Long aLong) throws APIException;
+    CategoryDtoGet updateAndGet(DtoUpdate<Category, Long> dtoUpdate, Long aLong) throws APIException;
 
     @Override
-    String update(DtoUpdate<Category, String> dtoUpdate, Long aLong) throws APIException;
+    Long update(DtoUpdate<Category, Long> dtoUpdate, Long aLong) throws APIException;
 
     @Override
-    void deleteByID(String s, Long aLong) throws APIException;
+    void deleteByID(Long id, Long aLong) throws APIException;
 
     @Override
-    CategoryDtoGet deleteAndGet(String s, Long aLong) throws APIException;
+    CategoryDtoGet deleteAndGet(Long id, Long aLong) throws APIException;
 }

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import vn.saolasoft.base.persistence.repository.AuditableRepository;
 
 @Repository
-public interface ProductRepository extends AuditableRepository<Product, String> {
+public interface ProductRepository extends AuditableRepository<Product, Long> {
 }

@@ -1,29 +1,24 @@
 package org.example.productmanagement2.product.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.example.productmanagement2.product.model.Product;
-import org.hibernate.annotations.UuidGenerator;
 import org.springframework.stereotype.Component;
 import vn.saolasoft.base.service.dto.DtoCreate;
 
-import java.io.Serial;
-
 @Component
-public class ProductDtoCreate extends DtoCreate<Product, String> {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    @UuidGenerator( style = UuidGenerator.Style.RANDOM)
-    private String sku;
+public class ProductDtoCreate extends DtoCreate<Product, Long> {
 
     private String productName;
     private double price;
 
-    private String categoryId;
+    private Long categoryId;
 
-    ProductDtoCreate() {}
+    ProductDtoCreate() {
+        super();
+    }
 
-    ProductDtoCreate(String sku, String productName, double price, String categoryId) {
-        this.sku = sku;
+    ProductDtoCreate(String productName, double price, Long categoryId) {
+        this.setId(this.getId());
         this.productName = productName;
         this.price = price;
         this.categoryId = categoryId;
@@ -32,14 +27,34 @@ public class ProductDtoCreate extends DtoCreate<Product, String> {
     @Override
     public Product toEntry() {
         Product product = new Product();
+        product.setId(this.getId());
         product.setProductName(productName);
         product.setPrice(price);
         product.setCategoryId(categoryId);
         return product;
     }
 
-    @Override
-    public String getId() {
-        return "";
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }
