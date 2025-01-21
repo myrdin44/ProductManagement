@@ -1,12 +1,11 @@
 package org.example.productmanagement2.product.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.example.productmanagement2.product.model.Product;
 import org.springframework.stereotype.Component;
-import vn.saolasoft.base.service.dto.DtoCreate;
+import vn.saolasoft.base.service.dto.SerialIDDtoCreate;
 
 @Component
-public class ProductDtoCreate extends DtoCreate<Product, Long> {
+public class ProductDtoCreate extends SerialIDDtoCreate<Product> {
 
     private String productName;
     private double price;
@@ -18,7 +17,6 @@ public class ProductDtoCreate extends DtoCreate<Product, Long> {
     }
 
     ProductDtoCreate(String productName, double price, Long categoryId) {
-        this.setId(this.getId());
         this.productName = productName;
         this.price = price;
         this.categoryId = categoryId;

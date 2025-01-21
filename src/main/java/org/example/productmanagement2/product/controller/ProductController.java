@@ -1,6 +1,8 @@
 package org.example.productmanagement2.product.controller;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jakarta.annotation.PostConstruct;
 
 import org.apache.commons.logging.Log;
@@ -24,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pd")
+@Api
 public class ProductController{
     private static final Log log = LogFactory.getLog(ProductController.class);
     @Autowired
@@ -37,6 +40,7 @@ public class ProductController{
     }
 
     @GetMapping("/list")
+    @ApiOperation(value = "List Products")
     public ResponseEntity<APIListResponse<List<ProductDtoGet>>> getListProducts(@RequestBody PaginationInfo paginationInfo){
         return auditableDtoAPIMethod.getList(paginationInfo);
     }

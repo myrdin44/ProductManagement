@@ -5,26 +5,26 @@ import vn.saolasoft.base.service.dto.DtoUpdate;
 
 public class ProductDtoUpdate extends DtoUpdate<Product, Long> {
 
-    private String sku;
+    private Long uuid;
     private String productName;
     private double price;
     private String categoryId;
 
     public ProductDtoUpdate() {}
 
-    public ProductDtoUpdate(String sku, String productName, double price, String categoryId) {
-        this.sku = sku;
+    public ProductDtoUpdate(Long id, String productName, double price, String categoryId) {
+        this.uuid = id;
         this.productName = productName;
         this.price = price;
         this.categoryId = categoryId;
     }
 
-    public String getSku() {
-        return sku;
+    public Long getUuid() {
+        return uuid;
     }
 
-    public void setSku(String sku) {
-        this.sku = sku;
+    public void setUuid(Long uuid) {
+        this.uuid = uuid;
     }
 
     public String getProductName() {
@@ -53,10 +53,9 @@ public class ProductDtoUpdate extends DtoUpdate<Product, Long> {
 
     @Override
     public boolean apply(Product product) {
-        if(!product.getId().equals(sku)
-        || !product.getProductName().equals(productName)
-            || product.getPrice() != price
-            || !product.getCategoryId().equals(categoryId)
+        if(product.getId() == this.getUuid() && product.getProductName().equals(productName)
+            && product.getPrice() == price
+            && product.getCategoryId().equals(categoryId)
         ) {
             return false;
         }

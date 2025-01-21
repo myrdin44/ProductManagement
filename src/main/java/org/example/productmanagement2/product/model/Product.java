@@ -6,13 +6,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.example.productmanagement2.category.model.Category;
-import vn.saolasoft.base.persistence.model.AuditableDbEntry;
+import vn.saolasoft.base.persistence.model.AuditableSerialIDEntry;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "products")
-public class Product extends AuditableDbEntry<Long> {
+public class Product extends AuditableSerialIDEntry {
 
     private String productName;
 
