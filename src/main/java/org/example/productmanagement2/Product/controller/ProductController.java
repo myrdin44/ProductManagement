@@ -3,11 +3,10 @@ package org.example.productmanagement2.Product.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import jakarta.annotation.PostConstruct;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.example.productmanagement2.Product.model.Product;
-import org.example.productmanagement2.Product.request.SearchRequest;
+import org.example.productmanagement2.Product.query.SearchQuery;
 import org.example.productmanagement2.Product.service.dto.ProductDtoCreate;
 import org.example.productmanagement2.Product.service.dto.ProductDtoGet;
 import org.example.productmanagement2.Product.service.dto.ProductDtoUpdate;
@@ -18,9 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import vn.saolasoft.base.api.method.AuditableDtoAPIMethod;
 import vn.saolasoft.base.api.response.APIListResponse;
 import vn.saolasoft.base.api.response.APIResponse;
-import vn.saolasoft.base.service.filter.BaseFilter;
 import vn.saolasoft.base.service.filter.PaginationInfo;
-
+import vn.saolasoft.base.service.filter.SortInfo;
 import java.util.List;
 
 @RestController
@@ -40,7 +38,11 @@ public class ProductController{
 
     @GetMapping("/list")
     @ApiOperation(value = "List Products")
-    public ResponseEntity<APIListResponse<List<ProductDtoGet>>> getListProducts(@RequestBody PaginationInfo paginationInfo){
+    public ResponseEntity<APIListResponse<List<ProductDtoGet>>> getListProducts(@RequestParam("firstRow") int firstRow,
+                                                                                @RequestParam("maxResult") int maxResult,
+                                                                                @RequestParam("orderColumn") String orderColumn,
+                                                                                @RequestParam("ascending") boolean ascending) {
+        PaginationInfo paginationInfo = new PaginationInfo(firstRow, maxResult, new SortInfo(orderColumn, ascending));
         return auditableDtoAPIMethod.getList(paginationInfo);
     }
 
@@ -55,13 +57,10 @@ public class ProductController{
         return auditableDtoAPIMethod.getById(productId);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<APIListResponse<List<ProductDtoGet>>> search(@RequestBody SearchRequest searchRequest){
-        BaseFilter<Product, Long> baseFilter = searchRequest.getBaseFilter();
-
-        PaginationInfo paginationInfo = searchRequest.getPaginationInfo();
-
-        return auditableDtoAPIMethod.search(baseFilter, paginationInfo);
+    @PostMapping("/search")
+    public ResponseEntity<APIListResponse<List<ProductDtoGet>>> search(@RequestBody SearchQuery searchQuery){
+        PaginationInfo paginationInfo = new PaginationInfo();
+        return auditableDtoAPIMethod.search(searchQuery, paginationInfo);
     }
 
     @PutMapping("/update")
