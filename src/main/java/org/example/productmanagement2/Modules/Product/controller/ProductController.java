@@ -21,21 +21,21 @@ import vn.saolasoft.base.service.filter.PaginationInfo;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pd")
+@RequestMapping("/products")
 @Api
 public class ProductController{
     private static final Log log = LogFactory.getLog(ProductController.class);
     @Autowired
     private ProductJpaServiceImpl productService;
 
-    private AuditableDtoAPIMethod<ProductDtoGet, Product, String> auditableDtoAPIMethod = new AuditableDtoAPIMethod<ProductDtoGet, Product, String>(productService);
+    private AuditableDtoAPIMethod<ProductDtoGet, Product, String> auditableDtoAPIMethod = new AuditableDtoAPIMethod<>(productService);
 
     @PostConstruct
     public void init() {
         this.auditableDtoAPIMethod = new AuditableDtoAPIMethod<>(productService);
     }
 
-    @GetMapping("/list")
+    @GetMapping
     @ApiOperation(value = "List Products")
     public ResponseEntity<APIListResponse<List<ProductDtoGet>>> getListProducts(@RequestParam("firstRow") int firstRow,
                                                                                 @RequestParam("maxResult") int maxResult,
@@ -44,15 +44,15 @@ public class ProductController{
         return auditableDtoAPIMethod.getList(paginationInfo);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<APIResponse<String>> createProduct(@RequestBody ProductDtoCreate productDtoCreate){
         log.debug("Received DTO {}" + productDtoCreate);
         return auditableDtoAPIMethod.create(productDtoCreate, 1L);
     }
 
-    @GetMapping("/get-one")
-    public ResponseEntity<APIResponse<ProductDtoGet>> getProductById(@RequestParam("id") String productId){
-        return auditableDtoAPIMethod.getById(productId);
+    @GetMapping("/{uuid}")
+    public ResponseEntity<APIResponse<ProductDtoGet>> getProductById(@PathVariable String uuid){
+        return auditableDtoAPIMethod.getById(uuid);
     }
 
     @PostMapping("/search")
@@ -61,14 +61,15 @@ public class ProductController{
         return auditableDtoAPIMethod.search(searchQuery, paginationInfo);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<APIResponse<String>> updateProduct(@RequestBody ProductDtoUpdate productDtoUpdate){
+    @PutMapping("/{uuid}")
+    public ResponseEntity<APIResponse<String>> updateProduct(@PathVariable String uuid, @RequestBody ProductDtoUpdate productDtoUpdate){
+        productDtoUpdate.setId(uuid);
         return auditableDtoAPIMethod.update(productDtoUpdate, 1L);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<APIResponse<String>> deleteProduct(@RequestParam("id") String productId){
-        return auditableDtoAPIMethod.delete(productId, 1L);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<APIResponse<String>> deleteProduct(@PathVariable("uuid") String uuid){
+        return auditableDtoAPIMethod.delete(uuid, 1L);
     }
 
 }

@@ -22,7 +22,7 @@ import vn.saolasoft.base.service.filter.PaginationInfo;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stock")
+@RequestMapping("/categories")
 @Api(tags = "Category apis", value = "Controller handle crud operation")
 public class CategoryController {
 
@@ -38,25 +38,25 @@ public class CategoryController {
         this.auditableDtoAPIMethod = new AuditableDtoAPIMethod<>(categoryJpaService);
     }
 
-    @GetMapping("/list")
+    @GetMapping
     @ApiOperation(tags = "list", value = "listed completely!")
-    public ResponseEntity<APIListResponse<List<CategoryDtoGet>>> getListCategory(@RequestParam("firstRow") int firstRow,
-                                                                                 @RequestParam("maxResult") int maxResult,
-                                                                                 @RequestParam("orderColumn") String orderColumn) {
+    public ResponseEntity<APIListResponse<List<CategoryDtoGet>>> getListCategory(@RequestParam(value = "firstRow", defaultValue = "0") int firstRow,
+                                                                                 @RequestParam(value = "maxResult", defaultValue = "9") int maxResult,
+                                                                                 @RequestParam(value = "orderColumn", defaultValue = "id") String orderColumn) {
 
         PaginationInfo paginationInfo = new PaginationInfo(firstRow, maxResult, orderColumn);
         return auditableDtoAPIMethod.getList(paginationInfo);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<APIResponse<Long>> createCategory(@RequestBody CategoryDtoCreate categoryDtoCreate) {
         logger.info(categoryDtoCreate.toString());
         return auditableDtoAPIMethod.create(categoryDtoCreate, 1L);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<APIResponse<Long>> updateCategory(@RequestBody CategoryDtoUpdate categoryDtoUpdate) {
-        logger.info(categoryDtoUpdate.toString());
+    @PutMapping("/{id}")
+    public ResponseEntity<APIResponse<Long>> updateCategory(@PathVariable("id") Long id, @RequestBody CategoryDtoUpdate categoryDtoUpdate) {
+        categoryDtoUpdate.setId(id);
         return auditableDtoAPIMethod.update(categoryDtoUpdate, 1L);
     }
 
@@ -67,13 +67,13 @@ public class CategoryController {
         return auditableDtoAPIMethod.search(searchQuery, paginationInfo);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<APIResponse<Long>> deleteCategory(@RequestParam("id") Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<APIResponse<Long>> deleteCategory(@PathVariable("id") Long id) {
         return auditableDtoAPIMethod.delete(id, 1L);
     }
 
-    @GetMapping("/get-one")
-    public ResponseEntity<APIResponse<CategoryDtoGet>> getCategory(@RequestParam("id") Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<APIResponse<CategoryDtoGet>> getCategory(@PathVariable("id") Long id) {
         return auditableDtoAPIMethod.getById(id);
     }
 }
