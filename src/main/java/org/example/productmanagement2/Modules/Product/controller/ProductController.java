@@ -18,7 +18,6 @@ import vn.saolasoft.base.api.method.AuditableDtoAPIMethod;
 import vn.saolasoft.base.api.response.APIListResponse;
 import vn.saolasoft.base.api.response.APIResponse;
 import vn.saolasoft.base.service.filter.PaginationInfo;
-import vn.saolasoft.base.service.filter.SortInfo;
 import java.util.List;
 
 @RestController
@@ -29,7 +28,7 @@ public class ProductController{
     @Autowired
     private ProductJpaServiceImpl productService;
 
-    private AuditableDtoAPIMethod<ProductDtoGet, Product, Long> auditableDtoAPIMethod = new AuditableDtoAPIMethod<ProductDtoGet, Product, Long>(productService);
+    private AuditableDtoAPIMethod<ProductDtoGet, Product, String> auditableDtoAPIMethod = new AuditableDtoAPIMethod<ProductDtoGet, Product, String>(productService);
 
     @PostConstruct
     public void init() {
@@ -46,13 +45,13 @@ public class ProductController{
     }
 
     @PostMapping("/create")
-    public ResponseEntity<APIResponse<Long>> createProduct(@RequestBody ProductDtoCreate productDtoCreate){
+    public ResponseEntity<APIResponse<String>> createProduct(@RequestBody ProductDtoCreate productDtoCreate){
         log.debug("Received DTO {}" + productDtoCreate);
         return auditableDtoAPIMethod.create(productDtoCreate, 1L);
     }
 
     @GetMapping("/get-one")
-    public ResponseEntity<APIResponse<ProductDtoGet>> getProductById(@RequestParam("id") Long productId){
+    public ResponseEntity<APIResponse<ProductDtoGet>> getProductById(@RequestParam("id") String productId){
         return auditableDtoAPIMethod.getById(productId);
     }
 
@@ -63,12 +62,12 @@ public class ProductController{
     }
 
     @PutMapping("/update")
-    public ResponseEntity<APIResponse<Long>> updateProduct(@RequestBody ProductDtoUpdate productDtoUpdate){
+    public ResponseEntity<APIResponse<String>> updateProduct(@RequestBody ProductDtoUpdate productDtoUpdate){
         return auditableDtoAPIMethod.update(productDtoUpdate, 1L);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<APIResponse<Long>> deleteProduct(@RequestParam("id") Long productId){
+    public ResponseEntity<APIResponse<String>> deleteProduct(@RequestParam("id") String productId){
         return auditableDtoAPIMethod.delete(productId, 1L);
     }
 

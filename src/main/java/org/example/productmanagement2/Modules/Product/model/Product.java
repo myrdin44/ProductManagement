@@ -6,11 +6,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.example.productmanagement2.Modules.Category.model.Category;
-import vn.saolasoft.base.persistence.model.AuditableSerialIDEntry;
+import vn.saolasoft.base.persistence.model.AuditableGeneratedIDEntry;
 
 @Entity
 @Table(name = "products")
-public class Product extends AuditableSerialIDEntry {
+public class Product extends AuditableGeneratedIDEntry {
 
     private String productName;
 

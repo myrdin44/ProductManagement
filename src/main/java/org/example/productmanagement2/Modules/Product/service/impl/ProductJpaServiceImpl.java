@@ -14,12 +14,12 @@ import java.util.Set;
 
 @Transactional
 @Service
-public class ProductJpaServiceImpl extends AuditableDtoJpaServiceImpl<ProductDtoGet, Product, Long> implements AuditableProductDtoService {
+public class ProductJpaServiceImpl extends AuditableDtoJpaServiceImpl<ProductDtoGet, Product, String> implements AuditableProductDtoService {
     @Autowired
     private ProductRepository productRepository;
 
     @Override
-    public AuditableRepository<Product, Long> getRepository() {
+    public AuditableRepository<Product, String> getRepository() {
         return this.productRepository;
     }
 

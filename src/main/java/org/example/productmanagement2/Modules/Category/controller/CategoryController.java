@@ -4,10 +4,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import jakarta.annotation.PostConstruct;
 import org.example.productmanagement2.Modules.Category.model.Category;
-import org.example.productmanagement2.Modules.Category.service.dto.query.SearchQuery;
+
 import org.example.productmanagement2.Modules.Category.service.dto.CategoryDtoCreate;
 import org.example.productmanagement2.Modules.Category.service.dto.CategoryDtoGet;
 import org.example.productmanagement2.Modules.Category.service.dto.CategoryDtoUpdate;
+import org.example.productmanagement2.Modules.Category.service.dto.query.SearchQuery;
 import org.example.productmanagement2.Modules.Category.service.impl.CategoryJpaServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,6 @@ import vn.saolasoft.base.api.method.AuditableDtoAPIMethod;
 import vn.saolasoft.base.api.response.APIListResponse;
 import vn.saolasoft.base.api.response.APIResponse;
 import vn.saolasoft.base.service.filter.PaginationInfo;
-import vn.saolasoft.base.service.filter.SortInfo;
 import java.util.List;
 
 @RestController

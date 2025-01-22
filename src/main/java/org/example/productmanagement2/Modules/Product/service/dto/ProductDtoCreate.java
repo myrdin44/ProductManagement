@@ -2,10 +2,11 @@ package org.example.productmanagement2.Modules.Product.service.dto;
 
 import org.example.productmanagement2.Modules.Product.model.Product;
 import org.springframework.stereotype.Component;
-import vn.saolasoft.base.service.dto.SerialIDDtoCreate;
+import vn.saolasoft.base.service.dto.GeneratedIDDtoCreate;
+
 
 @Component
-public class ProductDtoCreate extends SerialIDDtoCreate<Product> {
+public class ProductDtoCreate extends GeneratedIDDtoCreate<Product> {
 
     private String productName;
     private double price;
@@ -25,7 +26,10 @@ public class ProductDtoCreate extends SerialIDDtoCreate<Product> {
     @Override
     public Product toEntry() {
         Product product = new Product();
-        product.setId(this.getId());
+
+        if (this.getId() != null) {
+            product.setId(this.getId());
+        }
         product.setProductName(productName);
         product.setPrice(price);
         product.setCategoryId(categoryId);

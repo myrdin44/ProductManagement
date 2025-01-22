@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import vn.saolasoft.base.service.dto.DtoGet;
 
 @Component
-public class ProductDtoGet extends DtoGet<Product, Long> {
+public class ProductDtoGet extends DtoGet<Product, String> {
 
     private String productName;
     private double price;

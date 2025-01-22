@@ -10,7 +10,7 @@ import vn.saolasoft.base.service.filter.BaseFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchQuery extends BaseFilter<Product, Long> {
+public class SearchQuery extends BaseFilter<Product, String> {
     private String productName;
     private Long categoryId;
 
