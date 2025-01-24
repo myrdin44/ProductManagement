@@ -24,12 +24,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/stock/list", "/pd/list", "/api/v1/auth/**",
-                                "/v3/api-docs",
-                                "/v2/api-docs",
-                                "/swagger-resources/**",
-                                "/swagger-ui/**",
-                                "/webjars/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()).httpBasic(Customizer.withDefaults());
         http.headers(headers -> headers
                 .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));

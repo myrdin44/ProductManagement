@@ -1,10 +1,7 @@
 package org.example.productmanagement2.Modules.Category.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import jakarta.annotation.PostConstruct;
 import org.example.productmanagement2.Modules.Category.model.Category;
-
 import org.example.productmanagement2.Modules.Category.service.dto.CategoryDtoCreate;
 import org.example.productmanagement2.Modules.Category.service.dto.CategoryDtoGet;
 import org.example.productmanagement2.Modules.Category.service.dto.CategoryDtoUpdate;
@@ -23,7 +20,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
-@Api(tags = "Category apis", value = "Controller handle crud operation")
 public class CategoryController {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
@@ -39,7 +35,6 @@ public class CategoryController {
     }
 
     @GetMapping
-    @ApiOperation(tags = "list", value = "listed completely!")
     public ResponseEntity<APIListResponse<List<CategoryDtoGet>>> getListCategory(@RequestParam(value = "firstRow", defaultValue = "0") int firstRow,
                                                                                  @RequestParam(value = "maxResult", defaultValue = "9") int maxResult,
                                                                                  @RequestParam(value = "orderColumn", defaultValue = "id") String orderColumn) {

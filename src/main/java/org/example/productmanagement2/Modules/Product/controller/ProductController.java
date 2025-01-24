@@ -1,7 +1,5 @@
 package org.example.productmanagement2.Modules.Product.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,7 +20,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-@Api
 public class ProductController{
     private static final Log log = LogFactory.getLog(ProductController.class);
     @Autowired
@@ -36,7 +33,6 @@ public class ProductController{
     }
 
     @GetMapping
-    @ApiOperation(value = "List Products")
     public ResponseEntity<APIListResponse<List<ProductDtoGet>>> getListProducts(@RequestParam("firstRow") int firstRow,
                                                                                 @RequestParam("maxResult") int maxResult,
                                                                                 @RequestParam("orderColumn") String orderColumn) {
